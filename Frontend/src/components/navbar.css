@@ -1,12 +1,17 @@
 nav{
     background-color: aqua;
+    padding-right: 5%;
 }
 
 .buttons{
+    background-color: transparent;
    position: absolute;
+   padding-right: 20px;
    right: 0%;
 }
 
-.textSmecher{
-    font-weight:1000;
+button{
+    background-color: transparent;
+    border: none;
+    font-weight: 1000;
 }
