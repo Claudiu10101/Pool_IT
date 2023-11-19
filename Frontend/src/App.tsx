@@ -2,7 +2,6 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Page from "./Pages/Page";
 import './App.css'
-import Shit from "./components/shit";
 
 function App(){
   const [logged,setLogged] = useState(false);
