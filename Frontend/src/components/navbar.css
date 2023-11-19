@@ -1,0 +1,12 @@
+nav{
+    background-color: aqua;
+}
+
+.buttons{
+   position: absolute;
+   right: 0%;
+}
+
+.textSmecher{
+    font-weight:1000;
+}
