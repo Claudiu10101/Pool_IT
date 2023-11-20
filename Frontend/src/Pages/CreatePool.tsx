@@ -1,8 +1,15 @@
 import React from 'react'
+import bootstrap from 'bootstrap'
+import Footer from '../components/Footer'
 
 function CreatePool() {
+
   return (
-    <div>CreatePool</div>
+    <>
+    <div>
+    </div >
+    <Footer/>
+    </>
   )
 }
 

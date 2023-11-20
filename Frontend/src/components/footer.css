@@ -1,0 +1,14 @@
+.Footer {
+	background-color: rgba(255, 31, 102, 255);
+	position: absolute;
+	bottom: 0;
+	height: 50px;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.socialIcon {
+	width: 30px;
+	height: 30px;
+}

@@ -3,19 +3,21 @@ import Login from './Login';
 import Signin from './Signin';
 import CreatePool from './CreatePool';
 import Home from './Home';
+import './CSS/page.css'
 
-interface Props{
+interface Props {
   pageName: string;
 }
 
-function Page({pageName} : Props) {
-  if(pageName == "Log In")
-    return <Login/>
-  if(pageName == "Sign In")
-    return <Signin/>
-  if(pageName == "Create Pool")
-    return <CreatePool/>
-  return <Home/>
+function Page({ pageName }: Props) {
+  return (
+    <div className='pageBody'>
+      {(pageName == "Log In") ? <Login /> : <></>}
+      {(pageName == "Sign In") ? <Signin /> : <></>}
+      {(pageName == "Create Pool") ? <CreatePool /> : <></>}
+      {(pageName == "Home" || pageName == "Sign Out") ? <Home /> : <></>}
+    </div>
+  );
 }
 
 export default Page

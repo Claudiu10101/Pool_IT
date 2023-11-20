@@ -1,16 +1,21 @@
-nav{
-    background-color: rgb(170, 255, 255);
-    padding-right: 5%;
+.navbar {
+    height: 10%;
+    box-shadow: 0 10px 10px rgb(0, 0, 0, 0.2);
+    background-color: rgb(218, 218, 218);
 }
 
-.buttons{
+img {
+    margin-left: 20px;
+}
+
+.buttons {
     background-color: transparent;
-   position: absolute;
-   padding-right: 20px;
-   right: 0%;
+    position: absolute;
+    padding-right: 20px;
+    right: 0px;
 }
 
-button{
+button {
     background-color: transparent;
     border: none;
     font-weight: 1000;

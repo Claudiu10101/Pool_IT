@@ -1,0 +1,25 @@
+.poolBody {
+	width: 92%;
+	height: 425px;
+	background-color: white;
+	position: absolute;
+	margin: 30px;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+.voteButton {
+	position: absolute;
+	right: 10%;
+	width: 20%;
+	height: 10%;
+	background-color: rgba(4, 57, 94, 255);
+	border-radius: 12px;
+	color: white;
+}
+
+@media only screen and (min-width: 950px) {
+	.poolBody {
+		width: 40%;
+	}
+}

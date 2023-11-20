@@ -10,20 +10,20 @@ interface Props {
 function Navbar({ names, setPage }: Props) {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-          <a className="navbar-brand" onClick={() => setPage(" ")}>
-            <img width="40vw" height="40vh" src={voteaza} />
-          </a>
+      <div className="navbar">
+        <a className="navbar-brand" onClick={() => setPage("Home")}>
+          <img width="45vw" height="45vh" src={voteaza} />
+        </a>
 
-          <div className={"buttons"}>
-            <button onClick={() => setPage(names[0])}>
-              <span>{names[0]}</span>
-            </button>
-            <button onClick={() => setPage(names[1])}>
-              <span>{names[1]}</span>
-            </button>
-          </div>
-      </nav>
+        <div className={"buttons"}>
+          <button onClick={() => setPage(names[0])}>
+            <span>{names[0]}</span>
+          </button>
+          <button onClick={() => setPage(names[1])}>
+            <span>{names[1]}</span>
+          </button>
+        </div>
+      </div>
     </>
   );
 }

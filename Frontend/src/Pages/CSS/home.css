@@ -1,0 +1,27 @@
+.home-body {
+	position: absolute;
+	top: 70px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: transparent;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.container-fluid {
+	background-color: teal;
+}
+
+.Footer {
+	background-color: rgba(255, 31, 102, 255);
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.socialIcon {
+	width: 30px;
+	height: 30px;
+}

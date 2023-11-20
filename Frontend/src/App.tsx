@@ -3,37 +3,41 @@ import Navbar from "./components/Navbar";
 import Page from "./Pages/Page";
 import './App.css'
 
-function App(){
-  const [logged,setLogged] = useState(false);
-  const [currentPage,setCurrentPage] = useState(" ");
+function App() {
+  const [logged, setLogged] = useState(false);
+  const [currentPage, setCurrentPage] = useState("Home");
 
-  let PageNames = ["",""];
-  
-const handleCurrnetPage = (arg0 : string) => {
-  setCurrentPage(arg0);
-  if(arg0 == "Log In" || arg0 == "Sign In")
-    setLogged(true);
-  else if(arg0 == "Sign Out")
-    setLogged(false);
-  console.log("redirect to " + arg0);
-}
+  let PageNames = ["", ""];
 
-  if(logged){
-    PageNames = ["Create Pool","Sign Out"];
+  const handleCurrnetPage = (arg0: string) => {
+    setCurrentPage(arg0);
+    if (arg0 == "Log In" || arg0 == "Sign In")
+      setLogged(true);
+    else if (arg0 == "Sign Out")
+      setLogged(false);
+    console.log("redirect to " + arg0);
   }
-  else{
-    PageNames = ["Log In","Sign In"];  
+
+  if (logged) {
+    PageNames = ["Create Pool", "Sign Out"];
+  }
+  else {
+    PageNames = ["Log In", "Sign In"];
   }
 
 
   return (
-    <div>
+    <>
       <div className="NavbarClass">
-      <Navbar names={PageNames} setPage={handleCurrnetPage}/>
+        <Navbar names={PageNames} setPage={handleCurrnetPage} />
+
       </div>
-    <Page pageName={currentPage}/>
-    </div>
-  )  
+      <div className="PageClass">
+        <Page pageName={currentPage} />
+      </div>
+
+    </>
+  )
 }
 
 

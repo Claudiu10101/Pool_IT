@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './CSS/login.css'
+import './CSS/form.css'
+import Footer from '../components/Footer'
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -13,7 +14,7 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (arg0: boolean) => {
     // Here you can add logic to validate the username and password, and perform the login action.
     // For a simple example, we'll just log the values to the console.
     console.log('Username: ' + username);
@@ -21,36 +22,45 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <div className="form-group">
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={username}
-          onChange={handleUsernameChange}
-          required
-        />
-      </div>
+    <>
+    <div className='form-body'>
+      <div className="form-container">
+        <h2>Login</h2>
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={handleUsernameChange}
+            required
+          />
+        </div>
 
-      <div className="form-group">
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
+        </div>
+        <div className='formButtons'>
+          <button className="formButton" type="button" onClick={() => handleSubmit(false)}>
+            Cancel
+          </button>
+          <button className="formButton" type="button" onClick={() => handleSubmit(true)}>
+            Login
+          </button>
+        </div>
       </div>
-
-      <button className="formButton" type="button" onClick={handleSubmit}>
-        Login
-      </button>
-    </div>
+      </div>
+      <Footer/>
+    </>
   );
 };
 
