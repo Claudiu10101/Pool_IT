@@ -28,55 +28,60 @@ const SignIn = () => {
   };
 
   return (
-    <div className='form-body'>
-      <div className="form-container">
-        <h2>Sign Up</h2>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={handleUsernameChange}
-            required
-          />
-        </div>
+    <>
+      <div className='form-body'>
+        <div className="form-container">
+          <h2>Sign Up</h2>
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={handleUsernameChange}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
-        </div>
-        <div className='formButtons'>
-          <button className="formButton" type="button" onClick={() => handleSubmit(false)}>
-            Cancel
-          </button>
-          <button className="formButton" type="button" onClick={() => handleSubmit(true)}>
-            Sign Up
-          </button>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+          </div>
+          <div className='formButtons'>
+            <button className="formButton" type="button" onClick={() => handleSubmit(false)}>
+              Cancel
+            </button>
+            <button className="formButton" type="button" onClick={() => handleSubmit(true)}>
+              Sign Up
+            </button>
+          </div>
         </div>
       </div>
-      <Footer></Footer>
-    </div>
+      <div className='footerContainer'>
+        <Footer />
+      </div>
+
+    </>
   );
 };
 

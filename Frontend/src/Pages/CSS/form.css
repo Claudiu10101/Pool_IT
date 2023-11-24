@@ -53,6 +53,11 @@ input {
   left: 20%;
 }
 
+.footerContainer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 @media (max-width: 600px) {
   .form-container {
     background-color: rgba(4, 57, 94, 255);

@@ -1,11 +1,11 @@
 .Footer {
+	padding-top: 10px;
 	background-color: rgba(255, 31, 102, 255);
-	position: absolute;
-	bottom: 0;
 	height: 50px;
-	width: 100%;
+	width: 100vw;
 	display: flex;
 	justify-content: space-around;
+	z-index: 999999;
 }
 
 .socialIcon {

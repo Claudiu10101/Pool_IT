@@ -10,8 +10,29 @@
 	flex-wrap: wrap;
 }
 
-.container-fluid {
-	background-color: teal;
+.pool-list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: space-around;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.element {
+	width: 92%;
+	height: 425px;
+	margin-bottom: 40px;
+}
+
+.footerContainer {
+	width: 100%;
+}
+
+@media only screen and (min-width: 950px) {
+	.element {
+		width: 40%;
+	}
 }
 
 .Footer {

@@ -1,0 +1,8 @@
+.choiceNum {
+	width: 100%;
+	height: 30px;
+	border-radius: 10px;
+	border: none;
+	color: rgba(4, 57, 94, 255);
+	margin-top: 20px;
+}
