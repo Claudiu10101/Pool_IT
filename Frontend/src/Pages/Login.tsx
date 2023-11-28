@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './CSS/form.css'
 import Footer from '../components/Footer'
+import crypto from 'crypto-js'
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -16,7 +17,7 @@ const Login = () => {
 
   const handleSubmit = (arg0: boolean) => {
     console.log('Username: ' + username);
-    console.log('Password: ' + password);
+    console.log('Password: ' + crypto.SHA256(password));
   };
 
   return (

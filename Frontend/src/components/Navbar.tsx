@@ -1,6 +1,6 @@
 import React from "react";
 import "./navbar.css";
-import voteaza from "../assets/FREEDOM.jpg";
+import voteaza from "../assets/PoolIT.png";
 
 interface Props {
   names: string[];
@@ -12,7 +12,7 @@ function Navbar({ names, setPage }: Props) {
     <>
       <div className="navbar">
         <a className="navbar-brand" onClick={() => setPage("Home")}>
-          <img width="45vw" height="45vh" src={voteaza} />
+          <img width="100vw" height="45vh" src={voteaza} />
         </a>
 
         <div className={"buttons"}>

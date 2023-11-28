@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './CSS/form.css'
 import Footer from '../components/Footer'
+import crypto from 'crypto-js'
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
@@ -20,11 +21,18 @@ const SignIn = () => {
   };
 
   const handleSubmit = (arg0: boolean) => {
-    // Here you can add logic to handle the signup form submission.
-    // For a simple example, we'll just log the values to the console.
+    const date = new Date();
+    console.log('Id: ' + date.getTime() + '_' + username);
     console.log('Username: ' + username);
-    console.log('Email: ' + email);
-    console.log('Password: ' + password);
+
+    let email_check = new RegExp("[a-zA-Z0-9._]+@gmail.com");
+    if (email_check.test(email)) {
+      console.log('Email: ' + email);
+    }
+    else {
+      console.log("Invalid E-mail");
+    }
+    console.log('Password: ' + crypto.SHA256(password));
   };
 
   return (

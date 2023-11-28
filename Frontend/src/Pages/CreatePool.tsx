@@ -52,7 +52,7 @@ function CreatePool() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="option1">Option 1:</label>
+            <label htmlFor="options">Options:</label>
             <input
               id="option1"
               name="option1"
@@ -62,7 +62,6 @@ function CreatePool() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="option2">Option 2:</label>
             <input
               id="option2"
               name="option2"
@@ -72,7 +71,6 @@ function CreatePool() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="option3">Option 3:</label>
             <input
               id="option3"
               name="option3"

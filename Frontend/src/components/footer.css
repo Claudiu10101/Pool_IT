@@ -8,6 +8,12 @@
 	z-index: 999999;
 }
 
+p {
+	padding-top: px;
+}
+
+
+
 .socialIcon {
 	width: 30px;
 	height: 30px;
