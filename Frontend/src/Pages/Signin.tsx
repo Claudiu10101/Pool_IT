@@ -7,6 +7,9 @@ const SignIn = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPass, setConfirm] = useState('');
+
+  const [errorMessage, setError] = useState(" ");
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -20,19 +23,46 @@ const SignIn = () => {
     setPassword(e.target.value);
   };
 
+  const handleConfirmChange = (e) => {
+    setConfirm(e.target.value);
+  }
+
   const handleSubmit = (arg0: boolean) => {
     const date = new Date();
-    console.log('Id: ' + date.getTime() + '_' + username);
-    console.log('Username: ' + username);
+
+    let errors = 0;
 
     let email_check = new RegExp("[a-zA-Z0-9._]+@gmail.com");
+
+    if (username) {
+      console.log('Username: ' + username);
+    }
+    else {
+      setError("Invalid Username")
+    }
     if (email_check.test(email)) {
       console.log('Email: ' + email);
     }
     else {
-      console.log("Invalid E-mail");
+      setError("Invalid E-mail");
+      errors = 1;
     }
-    console.log('Password: ' + crypto.SHA256(password));
+    if (password != confirmPass) {
+      setError("Passwords not matching");
+      errors = 1;
+    }
+    else if (password.length < 8 || password.length > 32) {
+      setError("Password needs to be between 8 and 32 characters long")
+      errors = 1;
+    }
+    else {
+      console.log('Password: ' + crypto.SHA256(password));
+    }
+
+    if (errors == 0) {
+      console.log('Id: ' + date.getTime());
+      setError(" ")
+    }
   };
 
   return (
@@ -74,6 +104,20 @@ const SignIn = () => {
               onChange={handlePasswordChange}
               required
             />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirm_password">Confirm password:</label>
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              value={confirmPass}
+              onChange={handleConfirmChange}
+              required
+            />
+          </div>
+          <div className='errorMessage'>
+            {errorMessage}
           </div>
           <div className='formButtons'>
             <button className="formButton" type="button" onClick={() => handleSubmit(false)}>

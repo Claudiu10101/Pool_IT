@@ -1,25 +1,18 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const mongoose = require('mongoose')
+const User = require("./user")
 
-const app = express();
-app.use(bodyParser.json());
+mongoose.connect("mongodb://localhost/testdb")
+run()
+run()
 
+async function run() {
+	const user = await User.create({
+		email: "Kyle",
+		password: "123password"
+	})
+	user.email = "kyledaboss@gmail.com";
+	await user.save();
+	console.log(user);
+}
 
-app.get('/produse', (req, res) => {
-	res.status(200).send({ produs: "lapte", pret: 5.5 });
-})
-
-app.post('/produse', (req, res) => {
-	let produs = req.body.produs;
-	let pret = req.body.pret;
-	pret = pret * 2;
-	produs = produs + " nou";
-
-	let data_modificare = new Date();
-	res.status(200).send({ produs: produs, pret, data_modificare: data_modificare });
-})
-
-app.listen(5000, () => {
-	console.log("Server started on port 5000");
-})
+User.find()
