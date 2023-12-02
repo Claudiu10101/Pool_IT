@@ -1,0 +1,24 @@
+GET http://localhost:3000/Pools/6569d0b5ad114ce4c9bd5f27
+
+###
+
+GET http://localhost:3000/Pools/
+
+###
+
+Delete http://localhost:3000/Pools/6569d0b5ad114ce4c9bd5f27
+
+###
+ 
+ PATCH http://localhost:3000/Pools/6569d0b5ad114ce4c9bd5f2a
+Content-Type: "application/json"
+
+ {
+    "Options": [0,1,0]
+ }
+
+ ###
+
+ GET http://localhost:3000/Users/6569a0e4bee6f61bb312445b
+
+ ###

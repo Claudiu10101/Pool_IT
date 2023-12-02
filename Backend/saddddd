@@ -1,0 +1,43 @@
+const mongoose = require('mongoose')
+const User = require("./user")
+const Pool = require("./pool")
+
+mongoose.connect("mongodb://localhost/testdb")
+var myUser;
+
+runUser()
+
+User.find({email: "Kyle"})
+console.log('a')
+
+
+
+async function runUser() {
+	const myUser = await User.create({
+		email: "Kyle",
+		password: "123password"
+	})
+	await myUser.save();
+	console.log(myUser)
+}
+
+async function runPool() {
+	console.log(myUser);
+	const pool = await Pool.create({
+		Title: "Hmm",
+		Options: [{
+			Name: "a",
+			votes: 12
+		},
+		{
+			Name: "a",
+			votes: 12
+		}],
+		Owner: myUser.id
+
+	}
+	)
+
+	await pool.save();
+	console.log(pool);
+}

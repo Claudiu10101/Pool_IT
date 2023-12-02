@@ -1,18 +1,18 @@
+const express = require("express");
+const app = express();
 const mongoose = require('mongoose')
-const User = require("./user")
+
+
+app.use(express.json());
 
 mongoose.connect("mongodb://localhost/testdb")
-run()
-run()
+const db = mongoose.connection
 
-async function run() {
-	const user = await User.create({
-		email: "Kyle",
-		password: "123password"
-	})
-	user.email = "kyledaboss@gmail.com";
-	await user.save();
-	console.log(user);
-}
+const UserRouter = require('./routes/HandleUsers')
+const PoolRouter = require('./routes/HandlePools')
+app.use('/pools', PoolRouter)
+app.use('/users', UserRouter)
 
-User.find()
+app.listen(3000, () => {
+	console.log("Server started on port 3000");
+})
