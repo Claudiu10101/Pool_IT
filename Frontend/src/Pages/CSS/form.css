@@ -1,15 +1,15 @@
 .form-container {
   position: absolute;
-  left: 20%;
-  right: 10%;
-  top: 20%;
+  top: 10vh;
+  left: 0;
+  right: 0;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 10px 50px rgb(0, 0, 0, 1);
   background-color: white;
   color: rgba(4, 57, 94, 255);
-  width: 40%;
-  margin-bottom: 20px;
+  width: 100%;
+  height:auto;
 }
 
 .errorMessage{
@@ -19,15 +19,6 @@
   justify-content: center;
 }
 
-.form-body {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 71px;
-  background-color: rgba(4, 57, 94, 255);
-  width: 100%;
-  height: 100%;
-}
 
 .form-group {
   margin-bottom: 15px;
@@ -58,39 +49,18 @@ input {
   font-size: xx-large;
   color: rgba(4, 57, 94, 255);
   left: 20%;
-  font-size: 3vw;
+  font-size: auto;
 }
 
-@media (min-width: 1500px) {
-  .formButton {
-    font-size: 2vw;
-  }
-}
-
-.footerContainer {
-  position: absolute;
-  bottom: 0;
+.choiceNum{
   width: 100%;
+  border: none;
+  background-color: lightgray;
+  border-radius: 10px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575px) {
   .form-container {
-    background-color: rgba(4, 57, 94, 255);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0%;
-    right: 0%;
-    top: 20px;
-    border-radius: 0;
-  }
-
-  .form-group {
-    color: white;
-  }
-
-  .formButton {
-    color: white;
-    font-size: xx-large;
+    top: 10vh;
   }
 }

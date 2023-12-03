@@ -1,75 +1,84 @@
 import React, { useState } from 'react';
-import './CSS/form.css'
-import Footer from '../components/Footer'
+import { Button, Modal } from 'react-bootstrap';
 import crypto from 'crypto-js'
+import './CSS/form.css'
 
-const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPass, setConfirm] = useState('');
+interface MyModalProps {
+  showModal: boolean;
+  handleClose: () => void;
+}
 
-  const [errorMessage, setError] = useState(" ");
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmChange = (e) => {
-    setConfirm(e.target.value);
-  }
-
-  const handleSubmit = (arg0: boolean) => {
-    const date = new Date();
-
-    let errors = 0;
-
-    let email_check = new RegExp("[a-zA-Z0-9._]+@gmail.com");
-
-    if (username) {
-      console.log('Username: ' + username);
+const SignIn: React.FC<MyModalProps> = ({ showModal, handleClose }) => {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPass, setConfirm] = useState('');
+  
+    const [errorMessage, setError] = useState(" ");
+  
+    const handleUsernameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+      setUsername(e.target.value);
+    };
+  
+    const handleEmailChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+      setEmail(e.target.value);
+    };
+  
+    const handlePasswordChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+      setPassword(e.target.value);
+    };
+  
+    const handleConfirmChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+      setConfirm(e.target.value);
     }
-    else {
-      setError("Invalid Username")
-    }
-    if (email_check.test(email)) {
-      console.log('Email: ' + email);
-    }
-    else {
-      setError("Invalid E-mail");
-      errors = 1;
-    }
-    if (password != confirmPass) {
-      setError("Passwords not matching");
-      errors = 1;
-    }
-    else if (password.length < 8 || password.length > 32) {
-      setError("Password needs to be between 8 and 32 characters long")
-      errors = 1;
-    }
-    else {
-      console.log('Password: ' + crypto.SHA256(password));
-    }
-
-    if (errors == 0) {
-      console.log('Id: ' + date.getTime());
-      setError(" ")
-    }
-  };
-
+  
+    const handleSubmit = (arg0: boolean) => {
+      if(!arg0){
+        handleClose();
+        return;
+      }
+      const date = new Date();
+  
+      let errors = 0;
+  
+      let email_check = new RegExp("[a-zA-Z0-9._]+@gmail.com");
+  
+      if (username) {
+        console.log('Username: ' + username);
+      }
+      else {
+        setError("Invalid Username")
+      }
+      if (email_check.test(email)) {
+        console.log('Email: ' + email);
+      }
+      else {
+        setError("Invalid E-mail");
+        errors = 1;
+      }
+      if (password != confirmPass) {
+        setError("Passwords not matching");
+        errors = 1;
+      }
+      else if (password.length < 8 || password.length > 32) {
+        setError("Password needs to be between 8 and 32 characters long")
+        errors = 1;
+      }
+      else {
+        console.log('Password: ' + crypto.SHA256(password));
+      }
+  
+      if (errors == 0) {
+        console.log('Id: ' + date.getTime());
+        setError(" ")
+        handleClose();
+      }
+    };
+  
   return (
-    <>
-      <div className='form-body'>
-        <div className="form-container">
-          <h2>Sign Up</h2>
+    <Modal show={showModal} onHide={handleClose} dialogClassName="custom-modal">
+      <div className="form-container">
+          <h2 className="form-title">Sign Up</h2>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
             <input
@@ -128,12 +137,7 @@ const SignIn = () => {
             </button>
           </div>
         </div>
-      </div>
-      <div className='footerContainer'>
-        <Footer />
-      </div>
-
-    </>
+    </Modal>
   );
 };
 

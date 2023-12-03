@@ -22,6 +22,9 @@ const poolShema = new mongoose.Schema({
     },
     Owner:{
         type: mongoose.SchemaTypes.ObjectId,
+    },
+    Voters:{
+        type: [mongoose.SchemaTypes.ObjectId]
     }
 })
 

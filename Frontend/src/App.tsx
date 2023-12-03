@@ -1,45 +1,49 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
-import Page from "./Pages/Page";
-import './App.css'
+import "./App.css";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import CreatePool from "./Pages/CreatePool";
+import SignIn from "./Pages/Signin";
 
 function App() {
-  const [logged, setLogged] = useState(false);
-  const [currentPage, setCurrentPage] = useState("Home");
+  const [showPages,setShowPages] = useState([false,false,false])
 
-  let PageNames = ["", ""];
+  const user = document.cookie;
+
+  let PageNames : string[] = []
+
+  if (user.length == 0){
+     PageNames = ["Log In", "Sign In"];
+  }
+  else{
+     PageNames = ["Create Pool", "Log Out"];
+  }
 
   const handleCurrnetPage = (arg0: string) => {
-    setCurrentPage(arg0);
-    if (arg0 == "Log In" || arg0 == "Sign In")
-      setLogged(true);
-    else if (arg0 == "Sign Out")
-      setLogged(false);
     console.log("redirect to " + arg0);
-  }
+    const newPage = [false,false,false];
 
-  if (logged) {
-    PageNames = ["Create Pool", "Sign Out"];
-  }
-  else {
-    PageNames = ["Log In", "Sign In"];
-  }
+    if(arg0 == "Log In") newPage[0] = true;
+    else if(arg0 == "Sign In") newPage[1] = true;
+    else if(arg0 == "Create Pool") newPage[2] = true;
 
+    setShowPages(newPage);
+  };
 
   return (
     <>
       <div className="NavbarClass">
         <Navbar names={PageNames} setPage={handleCurrnetPage} />
-
       </div>
       <div className="PageClass">
-        <Page pageName={currentPage} />
-      </div>
-
+        <Home />
+        <Login showModal={showPages[0]} handleClose={() => {handleCurrnetPage("Home")}}/>
+        <SignIn showModal={showPages[1]} handleClose={() => {handleCurrnetPage("Home")}}/>
+        <CreatePool showModal={showPages[2]} handleClose={() => {handleCurrnetPage("Home")}}/>
+        </div>
     </>
-  )
+  );
 }
-
-
 
 export default App;
