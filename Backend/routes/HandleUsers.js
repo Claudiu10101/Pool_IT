@@ -6,7 +6,7 @@ const User = require("../user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-router.get('/:id', getUser, async (req, res) => {
+router.post('/Login', getUser, async (req, res) => {
 	try {
 		if (await bcrypt.compare(req.body.password, res.User.password)) {
 			const user = res.User
@@ -15,7 +15,6 @@ router.get('/:id', getUser, async (req, res) => {
 		}
 		else {
 			res.status(403).json({ Message: "Password incorrect" })
-
 		}
 	}
 	catch (err) {
@@ -37,7 +36,8 @@ router.post('/', async (req, res) => {
 
 		try {
 			const newUser = await user.save();
-			res.status(201).json(newUser)
+			const token = jwt.sign({ newUser }, process.env.ACCESS_TOKEN_SECRET)
+			res.status(200).json({ token: token })
 		} catch (err) {
 			res.status(500).json({ Message: err.message })
 		}
@@ -47,15 +47,16 @@ router.post('/', async (req, res) => {
 async function getUser(req, res, next) {
 	let user;
 	try {
-		const id = req.params.id;
-		user = await User.findById(id)
-		if (user === null) {
+		console.log(req.body.email+"|")
+		user = await User.findOne({ email: req.body.email })
+
+		if (user == null) {
 			return res.status(404).json({ Message: "Cannot find user" })
 		}
 	} catch (err) {
 		return res.status(500).json({ Message: err.message })
 	}
-
+	console.log(user)
 	res.User = user;
 	next();
 }

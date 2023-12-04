@@ -24,7 +24,8 @@ const poolShema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
     },
     Voters:{
-        type: [mongoose.SchemaTypes.ObjectId]
+        type: [mongoose.SchemaTypes.ObjectId],
+        default: []
     }
 })
 

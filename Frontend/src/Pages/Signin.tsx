@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import crypto from 'crypto-js'
 import './CSS/form.css'
+import axios from 'axios'
+
+const api = axios.create({
+  baseURL: 'http://localhost:3000/'
+})
 
 interface MyModalProps {
   showModal: boolean;
@@ -37,8 +42,6 @@ const SignIn: React.FC<MyModalProps> = ({ showModal, handleClose }) => {
         handleClose();
         return;
       }
-      const date = new Date();
-  
       let errors = 0;
   
       let email_check = new RegExp("[a-zA-Z0-9._]+@gmail.com");
@@ -64,13 +67,18 @@ const SignIn: React.FC<MyModalProps> = ({ showModal, handleClose }) => {
         setError("Password needs to be between 8 and 32 characters long")
         errors = 1;
       }
-      else {
-        console.log('Password: ' + crypto.SHA256(password));
-      }
   
       if (errors == 0) {
-        console.log('Id: ' + date.getTime());
-        setError(" ")
+        let json = {
+          "email": email,
+          "password": password
+        }
+
+        api.post('Users', json).then(res => {
+          console.log(res.data.token)
+          localStorage.setItem('token', res.data.token)
+          window.location.reload();
+        })
         handleClose();
       }
     };

@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalBody } from 'react-bootstrap';
 import crypto from 'crypto-js'
 import './CSS/form.css'
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL:"http://localhost:3000/"
+})
 
 interface MyModalProps {
   showModal: boolean;
@@ -10,11 +15,11 @@ interface MyModalProps {
 
 const Login: React.FC<MyModalProps> = ({ showModal, handleClose }) => {
 
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
-    const handleUsernameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-      setUsername(e.target.value);
+    const handleEmailChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+      setEmail(e.target.value);
     };
   
     const handlePasswordChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -23,8 +28,14 @@ const Login: React.FC<MyModalProps> = ({ showModal, handleClose }) => {
   
     const handleSubmit = (arg0: boolean) => {
       if(arg0){
-        console.log('Username: ' + username);
-        console.log('Password: ' + crypto.SHA256(password));
+        let json = {
+          email: email,
+          password: password
+        }
+        api.post('/Users/Login', json ).then(res => { 
+          localStorage.setItem('token', res.data.token)
+          window.location.reload()
+        })
       }
       handleClose();
     };
@@ -35,13 +46,13 @@ const Login: React.FC<MyModalProps> = ({ showModal, handleClose }) => {
       <div className="form-container">
           <h2 className='form-title'>Login</h2>
           <div className="form-group">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="email">Email:</label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={username}
-              onChange={handleUsernameChange}
+              id="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
               required
             />
           </div>

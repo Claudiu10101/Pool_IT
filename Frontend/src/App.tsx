@@ -9,11 +9,11 @@ import SignIn from "./Pages/Signin";
 function App() {
   const [showPages,setShowPages] = useState([false,false,false])
 
-  const user = document.cookie;
+  const user = localStorage.getItem('token') || 0;
 
   let PageNames : string[] = []
 
-  if (user.length == 0){
+  if (user === 0){
      PageNames = ["Log In", "Sign In"];
   }
   else{
@@ -27,7 +27,8 @@ function App() {
     if(arg0 == "Log In") newPage[0] = true;
     else if(arg0 == "Sign In") newPage[1] = true;
     else if(arg0 == "Create Pool") newPage[2] = true;
-
+    else if (arg0 == "Log Out") localStorage.removeItem('token');
+    
     setShowPages(newPage);
   };
 

@@ -3,22 +3,31 @@ import "./pool.css";
 import a from "../assets/a.webp";
 import LoadBar from "./LoadBar";
 import { Console } from "console";
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "http://localhost:3000/Pools/",
+  headers: {
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  },
+})
 
 interface Props {
+  Id: string;
   Title: string;
   options: string[];
   votes: number[];
   multiChoice: boolean;
-  Owner: string;
+  canDelete: boolean;
+  canVote: boolean;
+  onDelete: (id:string) => void;
 }
 
-function Pool({ Title, options, votes, multiChoice, Owner }: Props) {
+function Pool({Id ,Title, options, votes, multiChoice, canDelete, canVote ,onDelete }: Props) {
   const [voted, setVoted] = useState(0);
   const [selected, setSelected] = useState<boolean[]>([false, false, false]);
 
   const sum = votes.reduce((acc, curr) => acc + curr, 0);
-
-  const canDelete = false;
 
   const changeSelect = (index: number) => {
     if (!multiChoice) {
@@ -30,11 +39,20 @@ function Pool({ Title, options, votes, multiChoice, Owner }: Props) {
   };
 
   const handleClick = () => {
-    // Handle click logic here
+    if (canVote) {
+      let votes = [0,0,0]
+      for(let i = 0; i < selected.length; i++){
+        if(selected[i]){
+          votes[i] = 1
+        }
+      }
+
+      api.patch('/'+Id, {votes: votes})
+    }
   };
 
   const handleDelete = () => {
-    throw new Error("Function not implemented.");
+    onDelete(Id)
   };
 
   return (
