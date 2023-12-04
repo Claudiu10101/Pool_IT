@@ -40,7 +40,7 @@ const CreatePool: React.FC<MyModalProps> = ({ showModal, handleClose }) => {
   };
 
   const handleOptionNumChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    multipleAnswers = e.target.value === "option2"
+    multipleAnswers = e.target.value == "option2"
   };
 
 

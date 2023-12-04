@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Pool from "../components/Pool";
 import Footer from "../components/Footer";
 import Dude from "../assets/a.webp";
@@ -17,7 +17,9 @@ const api = axios.create({
 })
 
 function handlePoolDelete(id: string) {
-  api.delete('/'+id)
+  api.delete('/' + id).then(res => { 
+    window.location.reload();
+  })
 }
 
 function jsonToPool(json: any) {
@@ -30,11 +32,11 @@ function jsonToPool(json: any) {
 
   return (
       <Pool
-        Id={json._id}
+        Id={json.Id}
         Title={json.Title}
         options={choices}
         votes={votes}
-        multiChoice={json.MultiChoice}
+        multiChoice={json.MultipleChoice}
         canVote={localStorage.getItem('token') != null}
         canDelete={json.canDelete}
         onDelete={handlePoolDelete}
@@ -43,22 +45,19 @@ function jsonToPool(json: any) {
 }
 
 function Home() {
+  const [Pools, setPools] = useState([]);
 
-  const [Pools,setPools] = useState([])
+  useEffect(() => {
+    api.get('/')
+      .then(res => {
+        const result = res.data.map((item: any) => jsonToPool(item));
+        setPools(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
-  if(Pools.length == 0)
-  api.get('/')
-    .then(res => {
-      let result = []
-      for(let i = 0; i < res.data.length; i++) {
-        result.push(jsonToPool(res.data[i]))
-      }
-      setPools(result);
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  
   return (
     <>
       <div className="home-body">
@@ -67,7 +66,7 @@ function Home() {
           <div className="text">
             Opiniile sunt mai importante ca niciodată. Platformele de sondaje
             permit organizatorilor să culeagă feedback direct de la audiența lor
-            și să înțeleagă mai bine nevoile și dorințele acesteia.
+            și să înțeleagă mai bine nevoile și dorințele acesteia.
           </div>
         </div>
         <div className="pool-list">

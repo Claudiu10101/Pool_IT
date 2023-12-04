@@ -29,14 +29,14 @@ router.post('/', async (req, res) => {
 		res.status(409).json({ message: "Email already used" })
 	}
 	else {
-		const user = new User({
+		const newUser = new User({
 			email: req.body.email,
 			password: await bcrypt.hash(req.body.password, 10)
 		})
 
 		try {
-			const newUser = await user.save();
-			const token = jwt.sign({ newUser }, process.env.ACCESS_TOKEN_SECRET)
+			const user = await newUser.save();
+			const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET)
 			res.status(200).json({ token: token })
 		} catch (err) {
 			res.status(500).json({ Message: err.message })

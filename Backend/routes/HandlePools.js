@@ -11,25 +11,29 @@ router.get('/', async (req, res) => {
     const token = authHeader && authHeader.split(' ')[1]
 
     var currUser = null;
-    if(token != null)
-        currUser = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET).user._id
-
+    if (token != "guest") {
+        currUser = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET).user
+        
+    }
+    console.log(currUser)
+    console.log(token)
     try {
-        let result = [];
         const pools = await Pool.find()
-        //console.log(pools)
-        if (pools.length != 0)
-            for (let i = 0; i < pools.length; i++) {
-                result.push({
-                    Id: pools[i]._id,
-                    Title: pools[i].Title,
-                    Options: pools[i].Options,
-                    MultipleChoice: pools[i].MultipleChoice,
-                    canDelete: currUser === pools[i].Owner,
-                })
+
+        let result = pools.map(pool => {
+            let can_delete = false;
+            if (currUser != null) {
+                can_delete = currUser._id == pool.Owner
             }
-        else
-            result = pools;
+            return {
+                Id: pool._id,
+                Title: pool.Title,
+                Options: pool.Options,
+                MultipleChoice: pool.MultipleChoice,
+                canDelete: can_delete,
+            };
+        });
+
         console.log(result)
         res.status(200).json(result)
         
@@ -43,7 +47,7 @@ router.post('/', authenticateToken, async (req, res) => {
         Title: req.body.Title,
         Options: req.body.Options,
         MultipleChoice: req.body.MultipleChoice,
-        Owner: req.user.user._id
+        Owner: req.user._id
     })
     try {
         const newPool = await pool.save();
@@ -57,15 +61,14 @@ router.patch('/:id', [authenticateToken, getPool], async (req, res) => {
     const isInArray = res.Pool.Voters.some((Voter) => {
         return Voter.equals(req.user._id);
     });
-
     if (isInArray) {
-        res.status(403).json({ Message: "User already voted" })
+        return res.status(403).json({ Message: "User already voted" })
     }
     else {
-        res.Pool.Voters.push(req.user.user._id)
+        res.Pool.Voters.push(req.user._id)
 
         for (let i = 0; i < 3; i++) {
-            res.Pool.Options[i].votes += req.body.Options[i];
+            res.Pool.Options[i].votes += req.body.votes[i];
         }
 
         try {
@@ -100,7 +103,7 @@ function authenticateToken(req, res, next) {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(403)
-        req.user = user
+        req.user = user.user
         next()
     })
 }

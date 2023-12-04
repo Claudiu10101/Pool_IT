@@ -40,14 +40,31 @@ function Pool({Id ,Title, options, votes, multiChoice, canDelete, canVote ,onDel
 
   const handleClick = () => {
     if (canVote) {
-      let votes = [0,0,0]
+      let increases = [0, 0, 0]
+      let chose = false;
       for(let i = 0; i < selected.length; i++){
-        if(selected[i]){
-          votes[i] = 1
+        if (selected[i]) {
+          selected[i] = false;
+          increases[i] = 1
+          chose = true;
         }
       }
+      let body =
+      {
+        "votes" : increases,
+      }
+      if(chose)
+      try {
+        api.patch('/' + Id, body).then(res => {
+          for(let i = 0; i < increases.length; i++)
+            votes[i] += increases[i]
 
-      api.patch('/'+Id, {votes: votes})
+          setVoted(voted + 1);
+        })
+      }
+      catch (err) {
+        console.log(err)
+      }
     }
   };
 
