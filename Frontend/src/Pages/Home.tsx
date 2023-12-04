@@ -58,6 +58,9 @@ function Home() {
       });
   }, []);
 
+  let localization = (Pools.length == 0) ? "fixed" : "";
+  let position = (Pools.length == 0) ? "0px" : "";
+
   return (
     <>
       <div className="home-body">
@@ -73,7 +76,7 @@ function Home() {
           {Pools.map((pool) => (
             <div className="item element">{pool}</div>
           ))}
-          <div style={{ width: "100vw", marginTop: "20px"}}>
+          <div style={{ width: "100vw", marginTop: "20px", position: localization  , bottom: position}}>
             <Footer />
           </div>
         </div>
